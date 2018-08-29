@@ -1,4 +1,4 @@
-class CocktailRecipes::scraper
+class CocktailRecipes::Scraper
   attr_accessor :cocktails_page
 
  def initialize(url)
