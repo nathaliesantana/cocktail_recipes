@@ -4,7 +4,7 @@ class CocktailRecipes::Cli
   @@cocktails_list = ["cocktail 1", "cocktail 2", "cocktail 3" ]
 
   def welcome
-    # CocktailRecipes::Scraper.new("https://www.foodandwine.com/cocktail-recipes").scrape
+    CocktailRecipes::Scraper.new("https://www.foodandwine.com/cocktail-recipes").scrape
     puts "Hi, Welcome to Reinvented Classic Cocktails"
     main_menu
   end
