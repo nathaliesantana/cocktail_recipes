@@ -1,11 +1,31 @@
- class CocktailsRecipes::Recipes
-   attr_accessor :name, :ingredients, :instructions , :url
+class CocktailRecipes::Recipes
+ attr_accessor :name, :ingredients, :instructions , :url
 
-   def initialize(name, ingredients, instructions, url )
-     @name = name
-     @instructions = instructions
-     @ingredients = ingredients
-     @url = url
-
+ @@all = []
+  
+  def initialize(hash)
+     hash.each do |key, value|
+       self.send("#{key}=",value)
+     end
    end
-end
+
+   def self.all
+     @@all     
+   end
+
+   def save
+     self.class.all.push(self)
+   end
+
+   def self.create(hash)
+     recipe = self.new(hash)
+     recipe.save
+     recipe
+   end
+
+   def self.create_from_array(array)
+     array.each do |hash|
+       self.create(hash)
+   end
+   
+ end
