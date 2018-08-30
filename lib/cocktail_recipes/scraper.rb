@@ -14,11 +14,20 @@ class CocktailRecipes::Scraper
      recipe_hash[:url]= "https://www.foodandwine.com#{li.css("a").attribute('href').text}"
      recipes.push(recipe_hash)
    end
-binding.pry
+   CocktailRecipes::Recipes.create_from_array(recipes)
+ end
+
+ def scrape_profile
+   CocktailRecipes::Recipes.all.each do |recipe|
+     site= Nokogiri::HTML(open(recipe.url))
+     ingredients = site.css('div.ingredients').text.gsub(/[\n\r]/, '\n' => '', '\r' => '')
+     binding.pry
+   end
  end
 
  def scrape
    scrape_homepage
+   scrape_profile
  end
 
 end
