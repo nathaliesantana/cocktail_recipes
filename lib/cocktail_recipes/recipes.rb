@@ -7,6 +7,8 @@ class CocktailRecipes::Recipes
    hash.each do |key, value|
      self.send("#{key}=",value)
     end
+    @ingredients = []
+    @instructions = instructions
   end
 
   def self.all

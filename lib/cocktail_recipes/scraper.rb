@@ -20,10 +20,14 @@ class CocktailRecipes::Scraper
  def scrape_profile
    CocktailRecipes::Recipes.all.each do |recipe|
      site= Nokogiri::HTML(open(recipe.url))
-     ingredients = site.css('div.ingredients').text.gsub("\r", "_").split.join("\n").gsub("\n", " ").split("_")
-     binding.pry
+     hash = {}
+     recipe.ingredients = site.css('div.ingredients').text.gsub("\r", "_").split.join("\n").gsub("\n", " ").split("_")
+     recipe.instructions = site.css('div.step p').text
+    #  binding.pry
    end
+
  end
+
 
  def scrape
    scrape_homepage

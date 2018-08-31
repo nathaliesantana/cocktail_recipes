@@ -1,7 +1,4 @@
 class CocktailRecipes::Cli
-  attr_accessor :cocktails_list
-
-  @@cocktails_list = ["cocktail 1", "cocktail 2", "cocktail 3" ]
 
   def welcome
     CocktailRecipes::Scraper.new("https://www.foodandwine.com/cocktail-recipes").scrape
@@ -14,8 +11,15 @@ class CocktailRecipes::Cli
     display_cocktails_list
     puts "Type the number of the cocktail you would like to learn."
     input = gets.strip.to_i
-    if (1..@@cocktails_list.length).include? (input)
-      puts @@cocktails_list[input-1]
+    if (1..CocktailRecipes::Recipes.all.length).include?(input)
+      puts CocktailRecipes::Recipes.all[input-1].name.upcase
+      puts ""
+      puts "Ingredients"
+      puts CocktailRecipes::Recipes.all[input-1].ingredients
+      puts ""
+      puts "Instructions"
+      puts CocktailRecipes::Recipes.all[input-1].instructions
+
       menu_options
     else
       invalid
@@ -39,8 +43,8 @@ class CocktailRecipes::Cli
   end
 
   def display_cocktails_list
-    @@cocktails_list.each.with_index do |c, i|
-      puts "#{i+1}. #{c}"
+    CocktailRecipes::Recipes.all.each.with_index do |c, i|
+      puts "#{i+1}. #{c.name}"
     end
   end
 
