@@ -20,7 +20,7 @@ class CocktailRecipes::Scraper
  def scrape_profile
    CocktailRecipes::Recipes.all.each do |recipe|
      site= Nokogiri::HTML(open(recipe.url))
-     ingredients = site.css('div.ingredients').text.gsub(/[\n\r]/, '\n' => '', '\r' => '')
+     ingredients = site.css('div.ingredients').text.gsub("\r", "_").split.join("\n").gsub("\n", " ").split("_")
      binding.pry
    end
  end
