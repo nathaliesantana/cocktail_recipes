@@ -21,20 +21,17 @@ class CocktailRecipes::Scraper
    CocktailRecipes::Recipes.all.each do |recipe|
      site= Nokogiri::HTML(open(recipe.url))
      hash = {}
-     binding.pry
-     ingredients = site.css('div.ingredients').text
-     if ingredientes.count("\r") != 0
-       recipe.ingredients = ingredients.gsub("\r", "_").split.join("\n").gsub("\n", " ").split("_")
+
+     ingrds = site.css('div.ingredients').text
+     if ingrds.count("\r") != 0
+       recipe.ingredients = ingrds.gsub("\r", "_").split.join("\n").gsub("\n", " ").split("_")
      else
-       recipe.ingredients = ingredients.split("\n").map { |string| string.gsub(/\s+(?=\d)/, "") }.delete_if{|str| str[0] == " "}
+       recipe.ingredients = ingrds.split("\n").map { |string| string.gsub(/\s+(?=\d)/, "") }.delete_if{|str| str[0] == " "}
      end
      recipe.instructions = site.css('div.step p').text
    end
 
  end
-
-new_ingredients = []
-ingredients.split("\n").map { |string| string.gsub(/\s+(?=\d)/, "") }.delete_if{|str| str[0] == " "}
 
  def scrape
    scrape_homepage

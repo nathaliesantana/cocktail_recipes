@@ -28,6 +28,7 @@ class CocktailRecipes::Cli
 
   def menu_options
     puts "Would you like to see another recipe?"
+    puts "Type (Yes or No) "
     input = gets.strip.downcase
     input == "yes" ? main_menu : good_bye
   end
@@ -38,7 +39,8 @@ class CocktailRecipes::Cli
   end
 
   def invalid
-    puts "This is not an option.!!!!!!!!"
+    puts "Im sorry. This is not an option."
+    puts "Please try againg."
     main_menu
   end
 
