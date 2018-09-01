@@ -19,7 +19,7 @@ class CocktailRecipes::Cli
       puts ""
       puts "Instructions"
       puts CocktailRecipes::Recipes.all[input-1].instructions
-
+      puts ""
       menu_options
     else
       invalid
