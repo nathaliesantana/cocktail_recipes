@@ -26,8 +26,7 @@ class CocktailRecipes::Scraper
      if ingrds.count("\r") != 0
        recipe.ingredients = ingrds.gsub("\r", "_").split.join("\n").gsub("\n", " ").split("_").map {|string| string.split.join(" ") }
      else
-       #  binding.pry
-       recipe.ingredients = ingrds.split("\n").map { |string| string.gsub(/\s+(?=\d)/, "") }.delete_if{|str| str[0] == " "}
+       recipe.ingredients = ingrds.split("\n").map { |string| string.gsub(/\s+(?=\d)/, "") }.delete_if{|str| str[0] == " "}.reject { |c| c.empty? }
      end
      recipe.instructions = site.css('div.step p').text
    end
